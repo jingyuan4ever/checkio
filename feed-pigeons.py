@@ -1,5 +1,13 @@
 __author__ = 'jingyuan'
-def checkio(number):
+
+
+def checkio(n):
+    total = 0
+    for i in range(1, 10):
+        pigeons = sum(range(1, i + 1))
+        total += pigeons
+        if total >= n:
+            return max(sum(range(1, i)), pigeons - total + n)
     return 0
 
 #These "asserts" using only for self-checking and not necessary for auto-testing
