@@ -6,7 +6,11 @@ import datetime
 def checkio(data):
     #replace this for solution
     _type = int(data[1:2], 16) >> 2
-    year = int("20" + data[3] + data[2])
+    year = int(data[3] + data[2])
+    if year > 69:
+        year += 1900
+    else:
+        year += 2000
     month = int(data[5] + data[4])
     day = int(data[7] + data[6])
     hour = int(data[9] + data[8])
@@ -17,31 +21,35 @@ def checkio(data):
     if data15 / 8 == 1:
         sign = "-"
     timezone = int(str(data15 % 8) + data[14]) * 15 / 60
+    if timezone == 0:
+        sign = "+"
     DATEFORMAT = "%d %b %Y %H:%M:%S GMT %z"
     dt = datetime.datetime(year, month, day, hour, minute, second)
     p1 = dt.strftime(DATEFORMAT) + sign + str(timezone)
     length = int(data[16:18], 16)
     p2 = length
     offset = 18
+    tmp = []
+    rest = data[offset:]
+    for i in range((len(rest) + 1) / 2):
+        tmp.append(rest[i * 2:i * 2 + 2])
+    tmp.reverse()
+    rest = ''.join(tmp)
     clist = []
+    stream = bin(int(rest, 16))[2::]
+    step = 16
+    if _type == 0:
+        step = 7
+    elif _type == 1:
+        step = 8
+    stream = '0' * (length * step - len(stream)) + stream
     for i in range(length):
-        c = 0
+        s = stream[len(stream) - (i + 1) * step:len(stream) - i * step]
         if _type == 2:
-            # print data[offset+2:offset+4] + data[offset:offset+2]
-            c = int(data[offset:offset+4], 16)
-            offset += 4
-        elif _type == 1:
-            # print data[offset:offset+2]
-            c = int(data[offset:offset+2], 16)
-            offset += 2
-        elif _type == 0:
-            # print data[offset:offset+2]
-            c = int(data[offset:offset+2], 16) & 127
-            offset += 2
-        print c
-        clist.append(unichr(c))
+            s = s[8:] + s[:8]
+        clist.append(unichr(int(s, 2)))
+
     p3 = ''.join(clist)
-    print [p1, p2, p3.encode('utf-8')]
     return [p1, p2, p3]
 
 
