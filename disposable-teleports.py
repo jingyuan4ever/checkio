@@ -8,15 +8,14 @@ def checkio(teleports_string):
         portals.setdefault(i[0], []).append(i[1])
         portals.setdefault(i[1], []).append(i[0])
     pre = 0
-    while len(set(route)) != len(portals):
+    while len(set(route)) != len(portals) or route[-1] != '1':
         current = route[-1]
         open = [x for x in portals[current] if x > pre]
-        print current, open
         if not open:
-            route.remove(current)
+            route.pop(-1)
             pre = current
-            portals[pre].append(current)
-            portals[current].append(pre)
+            portals[pre].append(route[-1])
+            portals[route[-1]].append(pre)
 
         else:
             m = min(open)
@@ -24,8 +23,7 @@ def checkio(teleports_string):
             portals[m].remove(current)
             portals[current].remove(m)
             pre = 0
-    print ''.join(route)+'1'
-    return ''.join(route)+'1'
+    return ''.join(route)
 
 #This part is using only for self-testing
 if __name__ == "__main__":
