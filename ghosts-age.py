@@ -12,7 +12,6 @@ def checkio(opacity):
     nxt = 2
     for i in range(2, 20):
         now, nxt = nxt, now + nxt
-        print i, now
         if nxt + i >= dx:
             return now + nxt + i - dx
     return 0
