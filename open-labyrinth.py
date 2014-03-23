@@ -53,7 +53,7 @@ class maze:
         f = 10000
         ret = None
         for p in self.o:
-            if p.getF() <= f:
+            if p.f() <= f:
                 ret = p
         self.o.remove(ret)
         return ret
