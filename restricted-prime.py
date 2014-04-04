@@ -1,7 +1,19 @@
 __author__ = 'jingyuan'
+
+
 def checkio(number):
-    print divmod(2, 2)
+    one = int(True)
+    two = one + one
+    chushu = two
+    while chushu < number:
+        total = int(False)
+        while total <= number:
+            total += chushu
+            if total == number:
+                return False
+        chushu += one
+    return True
 
-    return True or False
 
-checkio(2)
+assert checkio(2)
+assert checkio(3)
