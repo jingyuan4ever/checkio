@@ -1,5 +1,9 @@
+import string
 def check_command(pattern, command):
-    return True or False
+    if len(str(bin(pattern)))-2 > len(command):
+        return False
+    a = ''.join([str(int(i.isalpha())) for i in command])
+    return pattern == string.atoi(a, 2)
 
 if __name__ == '__main__':
     #These "asserts" using only for self-checking and not necessary for auto-testing
