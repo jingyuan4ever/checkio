@@ -10,31 +10,25 @@ def position(id):
         diff -= 2*i
         y -= 2*i
     else:
-        diff -= diff
         y -= diff
+        diff -= diff
     if diff > 2*i:
         diff -= 2*i
         x += 2*i
     else:
-        diff -= diff
         x += diff
+        diff -= diff
     if diff > 2*i:
         diff -= 2*i
         y += 2*i
     else:
-        diff -= diff
         y += diff
-    if diff > 2*i:
-        diff -= 2*i
-        x -= 2*i
-    else:
         diff -= diff
-        x -= diff
+    x -= diff
     return x, y
 
 
 def find_distance(first, second):
-    print position(first), position(second)
     return sum(map(abs, map(sub, position(first), position(second))))
 
 if __name__ == '__main__':
